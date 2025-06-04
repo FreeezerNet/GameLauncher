@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
@@ -70,7 +70,7 @@ function App() {
                                     </PrivateRoute>
                                 }
                             />
-                            <Route path="/" element={<Navigate to="/games" />} />
+                            <Route path="/" element={<Navigate to="/login" />} />
                         </Routes>
                     </NativeFeaturesProvider>
                 </AuthProvider>

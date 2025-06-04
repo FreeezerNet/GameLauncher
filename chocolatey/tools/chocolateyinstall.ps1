@@ -2,20 +2,18 @@ $ErrorActionPreference = 'Stop'
 
 $packageName = 'game-launcher'
 $toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url64 = 'https://github.com/yourusername/game-launcher/releases/download/v1.0.0/GameLauncher-Setup-1.0.0.exe'
+$url = 'https://github.com/yourusername/game-launcher/releases/download/v1.0.0/Game.Launcher.Setup.1.0.0.exe'
 
 $packageArgs = @{
-  packageName    = $packageName
-  unzipLocation = $toolsDir
-  fileType      = 'EXE'
-  url64bit      = $url64
-  softwareName  = 'Game Launcher*'
-
-  checksum64    = ''
-  checksumType64= 'sha256'
-
-  silentArgs   = '/S'
-  validExitCodes= @(0)
+  packageName    = $env:ChocolateyPackageName
+  unzipLocation  = $toolsDir
+  fileType       = 'EXE'
+  url            = $url
+  softwareName   = 'Game Launcher*'
+  checksum       = '' # You'll need to add the checksum after uploading the installer
+  checksumType   = 'sha256'
+  silentArgs     = '/S' # Silent installation
+  validExitCodes = @(0)
 }
 
 Install-ChocolateyPackage @packageArgs 

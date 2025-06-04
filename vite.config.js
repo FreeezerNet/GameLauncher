@@ -11,10 +11,16 @@ export default defineConfig({
             include: "**/*.{jsx,tsx}",
         })
     ],
-    base: './',
+    base: process.env.NODE_ENV === 'development' ? '/' : './',
     build: {
-        outDir: 'dist',
+        outDir: 'dist/renderer',
         emptyOutDir: true,
+        assetsDir: '.',
+        rollupOptions: {
+            input: {
+                main: path.resolve(__dirname, 'index.html')
+            }
+        }
     },
     resolve: {
         alias: {

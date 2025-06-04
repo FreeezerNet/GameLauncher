@@ -169,6 +169,7 @@ function createTray() {
 ipcMain.handle('toggle-auto-launch', async (event, enable) => {
     try {
         if (isDev) {
+            store.set('autoLaunch', enable);
             return { success: true };
         }
 
@@ -177,6 +178,7 @@ ipcMain.handle('toggle-auto-launch', async (event, enable) => {
         } else {
             await autoLauncher.disable();
         }
+        store.set('autoLaunch', enable);
         return { success: true };
     } catch (error) {
         console.error('Auto-launch error:', error);
@@ -188,10 +190,12 @@ ipcMain.handle('toggle-auto-launch', async (event, enable) => {
 ipcMain.handle('get-auto-launch', async () => {
     try {
         if (isDev) {
-            return { success: true, isEnabled: false };
+            const enabled = store.get('autoLaunch', false);
+            return { success: true, isEnabled: enabled };
         }
 
         const isEnabled = await autoLauncher.isEnabled();
+        store.set('autoLaunch', isEnabled);
         return { success: true, isEnabled };
     } catch (error) {
         console.error('Get auto-launch status error:', error);
@@ -406,7 +410,8 @@ function createWindow() {
         mainWindow.loadURL('http://localhost:5173');
         mainWindow.webContents.openDevTools();
     } else {
-        mainWindow.loadFile(path.join(__dirname, '../renderer/dist/index.html'));
+        // Load the index.html from the renderer dist directory
+        mainWindow.loadFile(path.join(__dirname, '../../dist/renderer/index.html'));
     }
 
     mainWindow.once('ready-to-show', () => {

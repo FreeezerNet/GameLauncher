@@ -5,6 +5,7 @@ import {
     signOut,
     onAuthStateChanged
 } from 'firebase/auth';
+import { Center, Spinner } from '@chakra-ui/react';
 import { auth } from '../App';
 
 const AuthContext = createContext({});
@@ -45,9 +46,17 @@ export function AuthProvider({ children }) {
         logout
     };
 
+    if (loading) {
+        return (
+            <Center h="100vh">
+                <Spinner size="xl" />
+            </Center>
+        );
+    }
+
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     );
 } 

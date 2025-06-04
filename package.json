@@ -17,15 +17,20 @@
         "appId": "com.gamelauncher.app",
         "productName": "Game Launcher",
         "directories": {
-            "output": "dist"
+            "output": "dist",
+            "buildResources": "assets"
         },
         "files": [
-            "dist/**/*",
-            "src/**/*",
+            "dist/renderer/**/*",
+            "src/main/**/*",
             "package.json"
         ],
+        "extraMetadata": {
+            "main": "src/main/main.js"
+        },
         "win": {
-            "target": "nsis"
+            "target": "nsis",
+            "icon": "assets/icons/icon.png"
         },
         "nsis": {
             "oneClick": false,

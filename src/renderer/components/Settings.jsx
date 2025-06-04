@@ -9,59 +9,38 @@ import {
     Divider,
     useToast
 } from '@chakra-ui/react';
+import { useNativeFeatures } from './NativeFeatures';
 
 export default function Settings() {
-    const [autoLaunch, setAutoLaunch] = useState(false);
+    const { autoLaunchEnabled, toggleAutoLaunch, traySettings, updateTraySettings } = useNativeFeatures();
     const [minimizeToTray, setMinimizeToTray] = useState(true);
     const [closeToTray, setCloseToTray] = useState(true);
     const toast = useToast();
 
     useEffect(() => {
-        loadSettings();
-    }, []);
-
-    async function loadSettings() {
-        try {
-            // Load auto-launch setting
-            const autoLaunchResult = await window.electron.getAutoLaunch();
-            if (autoLaunchResult.success) {
-                setAutoLaunch(autoLaunchResult.isEnabled);
-            }
-
-            // Load tray settings
-            const traySettings = await window.electron.getTraySettings();
-            setMinimizeToTray(traySettings.minimizeToTray);
-            setCloseToTray(traySettings.closeToTray);
-        } catch (error) {
-            toast({
-                title: 'Error',
-                description: 'Failed to load settings',
-                status: 'error',
-                duration: 5000,
-                isClosable: true,
-            });
-        }
-    }
+        setMinimizeToTray(traySettings.minimizeToTray);
+        setCloseToTray(traySettings.closeToTray);
+    }, [traySettings]);
 
     async function handleAutoLaunchChange(event) {
+        const newValue = event.target.checked;
         try {
-            const result = await window.electron.toggleAutoLaunch(event.target.checked);
-            if (result.success) {
-                setAutoLaunch(event.target.checked);
+            const success = await toggleAutoLaunch(newValue);
+            if (success) {
                 toast({
                     title: 'Success',
-                    description: `Auto-launch ${event.target.checked ? 'enabled' : 'disabled'}`,
+                    description: `Auto-launch ${newValue ? 'enabled' : 'disabled'}`,
                     status: 'success',
                     duration: 3000,
                     isClosable: true,
                 });
             } else {
-                throw new Error(result.error);
+                throw new Error('Failed to update auto-launch setting');
             }
         } catch (error) {
             toast({
                 title: 'Error',
-                description: `Failed to ${event.target.checked ? 'enable' : 'disable'} auto-launch`,
+                description: `Failed to ${newValue ? 'enable' : 'disable'} auto-launch`,
                 status: 'error',
                 duration: 5000,
                 isClosable: true,
@@ -71,21 +50,22 @@ export default function Settings() {
 
     async function handleTraySettingsChange(minimizeToTray, closeToTray) {
         try {
-            const settings = await window.electron.setTraySettings({
+            const success = await updateTraySettings({
                 minimizeToTray,
                 closeToTray
             });
 
-            setMinimizeToTray(settings.minimizeToTray);
-            setCloseToTray(settings.closeToTray);
-
-            toast({
-                title: 'Success',
-                description: 'Tray settings updated',
-                status: 'success',
-                duration: 3000,
-                isClosable: true,
-            });
+            if (success) {
+                toast({
+                    title: 'Success',
+                    description: 'Tray settings updated',
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                });
+            } else {
+                throw new Error('Failed to update tray settings');
+            }
         } catch (error) {
             toast({
                 title: 'Error',
@@ -109,7 +89,7 @@ export default function Settings() {
                             Launch on system startup
                         </FormLabel>
                         <Switch
-                            isChecked={autoLaunch}
+                            isChecked={autoLaunchEnabled}
                             onChange={handleAutoLaunchChange}
                         />
                     </FormControl>
