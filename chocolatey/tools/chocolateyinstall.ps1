@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 
 $packageName = 'game-launcher'
 $toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url = 'https://github.com/yourusername/game-launcher/releases/download/v1.0.0/Game.Launcher.Setup.1.0.0.exe'
+$url = 'https://github.com/FreeezerNet/GameLauncher/releases/download/v1.0.0/Game.Launcher.Setup.1.0.0.exe'
 
 $packageArgs = @{
   packageName    = $env:ChocolateyPackageName
@@ -10,7 +10,7 @@ $packageArgs = @{
   fileType       = 'EXE'
   url            = $url
   softwareName   = 'Game Launcher*'
-  checksum       = '' # You'll need to add the checksum after uploading the installer
+  checksum       = '7ac27c5bab7fb8fdab4789e78273f7d3ea59342a430f9df3f6e9c47092370cbf'
   checksumType   = 'sha256'
   silentArgs     = '/S' # Silent installation
   validExitCodes = @(0)

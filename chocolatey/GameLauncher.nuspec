@@ -5,7 +5,7 @@
     <version>1.0.0</version>
     <title>Game Launcher</title>
     <authors>remga</authors>
-    <projectUrl>https://github.com/yourusername/game-launcher</projectUrl>
+    <projectUrl>https://github.com/FreeezerNet/GameLauncher</projectUrl>
     <tags>game-launcher games electron</tags>
     <summary>A desktop application to manage and launch your games</summary>
     <description>Game Launcher is a desktop application that helps you manage and launch your games. Features include game statistics tracking, auto-launch capability, and system tray integration.</description>
