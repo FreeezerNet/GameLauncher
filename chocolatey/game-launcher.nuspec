@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>game-launcher</id>
+    <version>1.0.0</version>
+    <title>Game Launcher</title>
+    <authors>Your Name</authors>
+    <projectUrl>https://github.com/yourusername/game-launcher</projectUrl>
+    <licenseUrl>https://opensource.org/licenses/ISC</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A modern desktop application for managing and launching your games. Features include game management, quick launch from system tray, game statistics tracking, and crash reporting.</description>
+    <summary>Modern game launcher and management application</summary>
+    <tags>game-launcher games gaming electron desktop-application</tags>
+    <packageSourceUrl>https://github.com/yourusername/game-launcher</packageSourceUrl>
+    <docsUrl>https://github.com/yourusername/game-launcher/wiki</docsUrl>
+    <bugTrackerUrl>https://github.com/yourusername/game-launcher/issues</bugTrackerUrl>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package> 

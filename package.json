@@ -1,0 +1,65 @@
+{
+    "name": "game-launcher",
+    "version": "1.0.0",
+    "description": "A desktop game launcher application",
+    "main": "src/main/main.js",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview",
+        "electron:dev": "concurrently \"vite\" \"electron .\"",
+        "electron:build": "vite build && electron-builder",
+        "electron:build:win": "vite build && electron-builder --win --dir",
+        "electron:dist:win": "vite build && electron-builder --win",
+        "test": "jest"
+    },
+    "build": {
+        "appId": "com.gamelauncher.app",
+        "productName": "Game Launcher",
+        "directories": {
+            "output": "dist"
+        },
+        "files": [
+            "dist/**/*",
+            "src/**/*",
+            "package.json"
+        ],
+        "win": {
+            "target": "nsis"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true
+        }
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@chakra-ui/icons": "^2.2.4",
+        "@chakra-ui/react": "^2.8.2",
+        "@emotion/react": "^11.11.3",
+        "@emotion/styled": "^11.11.0",
+        "auto-launch": "^5.0.6",
+        "electron-store": "^8.2.0",
+        "firebase": "^10.7.1",
+        "framer-motion": "^10.16.16",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-icons": "^5.5.0",
+        "react-router-dom": "^6.21.1"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.45",
+        "@types/react-dom": "^18.2.18",
+        "@vitejs/plugin-react": "^4.2.1",
+        "concurrently": "^8.2.2",
+        "electron": "^28.1.0",
+        "electron-builder": "^24.9.1",
+        "electron-reload": "^1.5.0",
+        "typescript": "^5.3.3",
+        "vite": "^5.0.10",
+        "wait-on": "^7.2.0"
+    }
+}
